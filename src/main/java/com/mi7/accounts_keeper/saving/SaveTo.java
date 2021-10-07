@@ -13,5 +13,5 @@ import java.util.List;
  * @author mi-7m
  */
 public interface SaveTo {
-    public void save(List<DataRecord> dataRecords);
+    public void save();
 }

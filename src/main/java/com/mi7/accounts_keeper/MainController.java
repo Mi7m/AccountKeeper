@@ -123,7 +123,7 @@ public class MainController {
         Enum<SaveType> saveType = SaveType.valueOf(saveMode.getSaveModeName());
         try {
             SaveTo saveTo = Saver.getSaver(saveType);
-            saveTo.save(DataSet.getInstance().getDataRecords());
+            saveTo.save();
         }
         catch (Exception e) {
             e.printStackTrace();

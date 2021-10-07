@@ -6,6 +6,8 @@ import com.mi7.accounts_keeper.loading.LoadFrom;
 import com.mi7.accounts_keeper.loading.Loader;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 // Синглтон. Содержит коллекции с данными, доступные в любом месте программы
@@ -124,5 +126,26 @@ public class DataSet {
         viewDataRecords = dataRecords;
     }
     
+    
+    public JSONObject createJSON() {
+        
+        JSONObject json = new JSONObject();
+        JSONArray jSONArray = new JSONArray();
+        
+        for (DataRecord record : this.dataRecords) {
+            JSONObject jso = new JSONObject();
+            jso.put("id", record.getId());
+            jso.put("name", record.getName());
+            jso.put("username", record.getUsername());
+            jso.put("password", record.getPassword());
+            jso.put("comment", record.getComment());
+            jso.put("www", record.getWww());
+            jSONArray.put(jso);
+        }
+        
+        json.put("Credentials", jSONArray);
+        
+        return json;
+    }
     
 }

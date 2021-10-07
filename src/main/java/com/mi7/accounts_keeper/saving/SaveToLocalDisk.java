@@ -28,7 +28,7 @@ public class SaveToLocalDisk implements SaveTo {
     
     
     @Override
-    public void save(List<DataRecord> dataRecords) {
+    public void save() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
