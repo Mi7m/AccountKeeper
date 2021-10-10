@@ -34,6 +34,8 @@
         <property name="dbPassword" value="${dbpass}"/>
         <property name="dbUser" value="${dbuser}"/>
         <property name="dbConnect" value="${dbconnect}"/>
+        <property name="localFile" value="${localfile}"/>
+        <property name="localDecryptedFile" value="${localdecryptedfile}"/>
     </bean>   
     
 </beans>

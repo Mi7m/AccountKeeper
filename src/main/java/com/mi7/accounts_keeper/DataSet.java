@@ -3,6 +3,7 @@ package com.mi7.accounts_keeper;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
 import com.mi7.accounts_keeper.loading.LoadFrom;
+import com.mi7.accounts_keeper.loading.LoadType;
 import com.mi7.accounts_keeper.loading.Loader;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,20 @@ public class DataSet {
             LoadFrom loadFrom = Loader.getLoader(appConfig.getLoadType());
             dataRecords = loadFrom.loadData();
             viewDataRecords = dataRecords;
-            status = appConfig.getFileName();
+            
+            Enum<LoadType> loadType = appConfig.getLoadType();
+            if (loadType.equals(LoadType.YANDEX_DISK)) {
+                status = appConfig.getFileName();
+            }
+            else if (loadType.equals(LoadType.LOCAL_DISK)) {
+                status = appConfig.getLocalFile();
+            }
+            else if (loadType.equals(LoadType.DATABASE)) {
+                status = appConfig.getDbConnect();
+            }
+        
+            
+            
         }
         catch (Exception e) {
             status = e.getMessage();

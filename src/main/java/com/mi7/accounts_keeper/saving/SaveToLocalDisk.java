@@ -5,8 +5,13 @@
  */
 package com.mi7.accounts_keeper.saving;
 
-import com.mi7.accounts_keeper.entity.DataRecord;
-import java.util.List;
+import com.mi7.accounts_keeper.AppConfig;
+import com.mi7.accounts_keeper.DataSet;
+import com.mi7.accounts_keeper.cipher.AppCipher;
+import java.io.FileOutputStream;
+import javax.crypto.Cipher;
+import org.json.JSONObject;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -14,22 +19,44 @@ import java.util.List;
  */
 public class SaveToLocalDisk implements SaveTo {
     
-    private boolean uncoded;
+    private boolean decoded;
+    private AppConfig appConfig;
 
     // Default conctructor for coded data
     public SaveToLocalDisk() {
         this(false);
     }
 
-    public SaveToLocalDisk(boolean uncoded) {
-        this.uncoded = uncoded;
+    public SaveToLocalDisk(boolean decoded) {
+        this.decoded = decoded;
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        this.appConfig = context.getBean("appConfig", AppConfig.class);
     }
-    
     
     
     @Override
     public void save() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject json = DataSet.getInstance().createJSON();
+        byte[] b = null;
+        String fileName = null;
+        
+        try {
+        
+            if (decoded) {
+                b = json.toString().getBytes("UTF-8");
+                fileName = appConfig.getLocalDecryptedFile();
+                
+            }
+            else {
+                b = AppCipher.getInstance().cryptBytes(Cipher.ENCRYPT_MODE, json.toString().getBytes("UTF-8"));
+                fileName = appConfig.getLocalFile();
+            }
+            try (FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
+                    fileOutputStream.write(b);
+            }
+        }
+        catch (Exception e) {
+            
+        }
     }
-    
 }

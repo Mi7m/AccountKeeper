@@ -21,6 +21,8 @@ public class AppConfig {
     private String dbUser;
     private String dbConnect;
     private String dbDecodedPass;
+    private String localFile;
+    private String localDecryptedFile;
     
 
     public String getToken() {
@@ -105,6 +107,22 @@ public class AppConfig {
 
     public void setDbDecodedPass(String dbDecodedPass) {
         this.dbDecodedPass = dbDecodedPass;
+    }
+
+    public String getLocalFile() {
+        return localFile;
+    }
+
+    public void setLocalFile(String localFile) {
+        this.localFile = localFile;
+    }
+
+    public String getLocalDecryptedFile() {
+        return localDecryptedFile;
+    }
+
+    public void setLocalDecryptedFile(String localDecryptedFile) {
+        this.localDecryptedFile = localDecryptedFile;
     }
 
     
