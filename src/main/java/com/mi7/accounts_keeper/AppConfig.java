@@ -17,6 +17,10 @@ public class AppConfig {
     private String downloadUri;
     private String uploadUri;
     private String password;
+    private String dbPassword;
+    private String dbUser;
+    private String dbConnect;
+    private String dbDecodedPass;
     
 
     public String getToken() {
@@ -71,7 +75,37 @@ public class AppConfig {
         this.password = password;
     }
 
-        
+    public String getDbPassword() {
+        return dbPassword;
+    }
+
+    public void setDbPassword(String dbPass) {
+        this.dbPassword = dbPass;
+    }
+
+    public String getDbUser() {
+        return dbUser;
+    }
+
+    public void setDbUser(String dbUser) {
+        this.dbUser = dbUser;
+    }
+
+    public String getDbConnect() {
+        return dbConnect;
+    }
+
+    public void setDbConnect(String dbConnect) {
+        this.dbConnect = dbConnect;
+    }
+
+    public String getDbDecodedPass() {
+        return dbDecodedPass;
+    }
+
+    public void setDbDecodedPass(String dbDecodedPass) {
+        this.dbDecodedPass = dbDecodedPass;
+    }
+
     
-   
 }

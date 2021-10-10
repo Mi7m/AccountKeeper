@@ -5,6 +5,7 @@
  */
 package com.mi7.accounts_keeper.saving;
 
+import com.mi7.accounts_keeper.AppConfig;
 import com.mi7.accounts_keeper.DataSet;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
@@ -18,6 +19,7 @@ import java.util.List;
 import javax.crypto.Cipher;
 import javax.sql.rowset.serial.SerialBlob;
 import org.json.JSONObject;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -28,18 +30,33 @@ public class SaveToDatabase implements SaveTo {
     @Override
     public void save() {
         JSONObject json = DataSet.getInstance().createJSON();
+        
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        AppConfig appConfig = context.getBean("appConfig", AppConfig.class);
+        
+        String dbConnect = appConfig.getDbConnect();
+        String dbUser = appConfig.getDbUser();
+        
         try {
-            byte[] b = AppCipher.getInstance().cryptBytes(Cipher.ENCRYPT_MODE, json.toString().getBytes("UTF-8"));
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/acc_keeper","user","user");
-            PreparedStatement statement = connection.prepareStatement("insert into maindata (id, acc_data) VALUES (1, ?)");
-            Blob blob = new SerialBlob(b);
-            statement.setBlob(1, blob);
-            statement.execute();
-            statement.close();
-            connection.close();
             
-            load();
+            String dbPassword = AppCipher.getInstance().crypt(Cipher.DECRYPT_MODE, appConfig.getDbPassword());
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
+            
+            try ( Connection connection = DriverManager.getConnection(
+                        dbConnect
+                        ,dbUser
+                        ,dbPassword);
+                  PreparedStatement statement = connection.prepareStatement("insert into maindata (id, acc_data) VALUES (1, ?)");){
+                
+                
+                // encrypt data
+                byte[] b = AppCipher.getInstance().cryptBytes(Cipher.ENCRYPT_MODE, json.toString().getBytes("UTF-8"));
+                
+//                DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
+                Blob blob = new SerialBlob(b);
+                statement.setBlob(1, blob);
+                statement.execute();
+            }    
             
         } catch (Exception e) {
             e.printStackTrace();

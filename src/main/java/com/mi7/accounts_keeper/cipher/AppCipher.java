@@ -51,6 +51,10 @@ public class AppCipher {
         String val = new String(bytes);
         return  val;
     }
+    
+    public String crypt(int mode, String data) throws Exception {
+        return  crypt(mode, data, this.key);
+    }
 
     public void setKey(String key) {
         this.key = key;

@@ -30,6 +30,10 @@
         <property name="stringLoadType" value="${loadtype}"/>
         <property name="downloadUri" value="${get}"/>
         <property name="uploadUri" value="${set}"/>
+        <property name="password" value="${pwd}"/>
+        <property name="dbPassword" value="${dbpass}"/>
+        <property name="dbUser" value="${dbuser}"/>
+        <property name="dbConnect" value="${dbconnect}"/>
     </bean>   
     
 </beans>

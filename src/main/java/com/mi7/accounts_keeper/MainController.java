@@ -33,8 +33,7 @@ public class MainController {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         
         //key 2100 pass 0021
-        String storedPass = ">яQ;«EБд·Eх	h¬mх:щ““\n" +
-                                        "З¶ы•ЌЎлб";
+        
         try {
             // Временное упрощение для простых 4-значных ключей и паролей ->
             password = password + password + password + password;
@@ -42,6 +41,8 @@ public class MainController {
             
             //<----------------------
             AppCipher appCipher = AppCipher.getInstance();
+            AppConfig appConfig = context.getBean("appConfig", AppConfig.class);
+            String storedPass = appConfig.getPassword();
             String encodedPassword = appCipher.crypt(Cipher.ENCRYPT_MODE, password, key);
 
             if (encodedPassword.equals(storedPass)) {
