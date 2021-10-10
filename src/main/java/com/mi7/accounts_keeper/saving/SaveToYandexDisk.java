@@ -51,29 +51,6 @@ public class SaveToYandexDisk implements SaveTo {
         if (file != null) uploadFile(file, hRef);
     }
     
-    
-    // Создание json объекта на основе данных
-//    private JSONObject createJSON(List<DataRecord> dataRecords) {
-//        
-//        JSONObject json = new JSONObject();
-//        JSONArray jSONArray = new JSONArray();
-//        
-//        for (DataRecord record : dataRecords) {
-//            JSONObject jso = new JSONObject();
-//            jso.put("id", record.getId());
-//            jso.put("name", record.getName());
-//            jso.put("username", record.getUsername());
-//            jso.put("password", record.getPassword());
-//            jso.put("comment", record.getComment());
-//            jso.put("www", record.getWww());
-//            jSONArray.put(jso);
-//        }
-//        
-//        json.put("Credentials", jSONArray);
-//        
-//        return json;
-//    }
-    
     // Создание файла, запись в него данных, шифрование
     private File createFile(JSONObject json) {
         

@@ -127,6 +127,7 @@ public class DataSet {
     }
     
     
+    // Создаем объект JSON из основных данных
     public JSONObject createJSON() {
         
         JSONObject json = new JSONObject();
@@ -146,6 +147,33 @@ public class DataSet {
         json.put("Credentials", jSONArray);
         
         return json;
+    }
+    
+    // Преобразовываем JSON в данные
+    public static List<DataRecord> parseData(String data) {
+        List<DataRecord> dataRecords = new ArrayList<>();
+        
+        try {
+            JSONObject json = new JSONObject(data);
+            JSONArray jSONArray = json.getJSONArray("Credentials");
+            for (int i = 0; i < jSONArray.length(); i++) {
+
+                JSONObject j = jSONArray.getJSONObject(i);
+                DataRecord dataRecord = new DataRecord(
+                          j.getLong("id")
+                        ,j.getString("name")
+                        ,j.getString("username")
+                        ,j.getString("password")
+                        ,j.getString("comment")
+                        ,j.getString("www"));
+
+                dataRecords.add(dataRecord);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dataRecords;
     }
     
 }

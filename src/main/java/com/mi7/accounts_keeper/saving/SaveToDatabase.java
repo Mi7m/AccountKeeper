@@ -46,8 +46,11 @@ public class SaveToDatabase implements SaveTo {
                         dbConnect
                         ,dbUser
                         ,dbPassword);
-                  PreparedStatement statement = connection.prepareStatement("insert into maindata (id, acc_data) VALUES (1, ?)");){
+                  PreparedStatement statement = connection.prepareStatement("insert into maindata (id, acc_data) VALUES (1, ?)");
+                  Statement deleteStatement = connection.createStatement();){
                 
+                
+                deleteStatement.execute("delete from maindata");
                 
                 // encrypt data
                 byte[] b = AppCipher.getInstance().cryptBytes(Cipher.ENCRYPT_MODE, json.toString().getBytes("UTF-8"));
@@ -64,23 +67,6 @@ public class SaveToDatabase implements SaveTo {
         
     }
     
-    private void load() {
-        try {
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/acc_keeper","user","user");
-            
-            Statement sta = connection.createStatement();
-            ResultSet result = sta.executeQuery("SELECT acc_data FROM maindata where id = 1");
-            result.next();
-            Blob blob = result.getBlob("acc_data");
-            byte[] b = blob.getBytes(1, (int) blob.length());
-            byte[] b1 = AppCipher.getInstance().cryptBytes(Cipher.DECRYPT_MODE, b);
-            String s = new String(b1);
-            System.out.println(b);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    
     
 }

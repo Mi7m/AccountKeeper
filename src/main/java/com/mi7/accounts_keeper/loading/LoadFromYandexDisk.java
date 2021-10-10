@@ -6,6 +6,7 @@
 package com.mi7.accounts_keeper.loading;
 
 import com.mi7.accounts_keeper.AppConfig;
+import com.mi7.accounts_keeper.DataSet;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
 import java.io.IOException;
@@ -36,7 +37,8 @@ public class LoadFromYandexDisk implements LoadFrom {
         // Скачивание и дешифровывание файла
         String jsonData = downloadData(hRef);
         // Преобразование в коллекцию
-        return parseData(jsonData);
+        return DataSet.parseData(jsonData);
+//        return parseData(jsonData);
         
     }
     
@@ -109,34 +111,6 @@ public class LoadFromYandexDisk implements LoadFrom {
             e.printStackTrace();
         }
         return null;
-    }
-    
-    
-    // Парсинг строки, получение результирующей коллекции с данными
-    private List<DataRecord> parseData(String data) {
-        List<DataRecord> dataRecords = new ArrayList<>();
-        
-        try {
-            JSONObject json = new JSONObject(data);
-            JSONArray jSONArray = json.getJSONArray("Credentials");
-            for (int i = 0; i < jSONArray.length(); i++) {
-
-                JSONObject j = jSONArray.getJSONObject(i);
-                DataRecord dataRecord = new DataRecord(
-                          j.getLong("id")
-                        ,j.getString("name")
-                        ,j.getString("username")
-                        ,j.getString("password")
-                        ,j.getString("comment")
-                        ,j.getString("www"));
-
-                dataRecords.add(dataRecord);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dataRecords;
     }
     
     
