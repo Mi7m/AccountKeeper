@@ -7,6 +7,7 @@ package com.mi7.accounts_keeper.loading;
 
 import com.mi7.accounts_keeper.AppConfig;
 import com.mi7.accounts_keeper.DataSet;
+import com.mi7.accounts_keeper.LogWriter;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
 import java.sql.Blob;
@@ -53,7 +54,7 @@ public class LoadFromDatabase implements LoadFrom {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("db loader", e.getMessage());
         }
         return null;
     }

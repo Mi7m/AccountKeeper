@@ -1,11 +1,6 @@
 
 package com.mi7.accounts_keeper.cipher;
 
-import com.oracle.nio.BufferSecrets;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 

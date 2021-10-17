@@ -46,13 +46,15 @@ public class MainController {
             if (encodedPassword.equals(storedPass)) {
                 // Login ok
                 appCipher.setKey(password);
+                LogWriter.getInstance().write("login", "login ok");
                 return "redirect:/main";
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("login", e.getMessage());
         }
         model.addAttribute("errorstatus", "incorrect key or password");
+        LogWriter.getInstance().write("login", "bad attempt");
         return "login";
     }
    
@@ -125,7 +127,7 @@ public class MainController {
             saveTo.save();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("controller save", e.getMessage());
         }
         return "redirect:/main";
     }

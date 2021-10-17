@@ -56,6 +56,7 @@ public class DataSet {
             
         }
         catch (Exception e) {
+            LogWriter.getInstance().write("Data processing", e.getMessage());
             status = e.getMessage();
         }
     }
@@ -185,7 +186,7 @@ public class DataSet {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("Data processing, parsing", e.getMessage());
         }
         return dataRecords;
     }

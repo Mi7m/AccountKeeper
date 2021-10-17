@@ -36,6 +36,7 @@
         <property name="dbConnect" value="${dbconnect}"/>
         <property name="localFile" value="${localfile}"/>
         <property name="localDecryptedFile" value="${localdecryptedfile}"/>
+        <property name="logFile" value="${logfile}"/>
     </bean>   
     
 </beans>

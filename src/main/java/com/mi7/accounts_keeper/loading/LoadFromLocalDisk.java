@@ -7,6 +7,7 @@ package com.mi7.accounts_keeper.loading;
 
 import com.mi7.accounts_keeper.AppConfig;
 import com.mi7.accounts_keeper.DataSet;
+import com.mi7.accounts_keeper.LogWriter;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
 import java.nio.file.Files;
@@ -37,7 +38,7 @@ public class LoadFromLocalDisk implements LoadFrom {
             return DataSet.parseData(new String(decrypted));
         }
         catch (Exception e) {
-            
+            LogWriter.getInstance().write("load from local disk", e.getMessage());
         }
         return null;
     }

@@ -7,6 +7,7 @@ package com.mi7.accounts_keeper.saving;
 
 import com.mi7.accounts_keeper.AppConfig;
 import com.mi7.accounts_keeper.DataSet;
+import com.mi7.accounts_keeper.LogWriter;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
 import java.io.BufferedWriter;
@@ -68,7 +69,7 @@ public class SaveToYandexDisk implements SaveTo {
             return file;
           }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("Save to YD", e.getMessage());
         }
         return null;
     }
@@ -104,7 +105,7 @@ public class SaveToYandexDisk implements SaveTo {
             
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("Save to YD", e.getMessage());
         }
         return href;
     }
@@ -126,7 +127,7 @@ public class SaveToYandexDisk implements SaveTo {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("Upload to YD", e.getMessage());
         }
     }
     

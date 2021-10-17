@@ -7,6 +7,7 @@ package com.mi7.accounts_keeper.loading;
 
 import com.mi7.accounts_keeper.AppConfig;
 import com.mi7.accounts_keeper.DataSet;
+import com.mi7.accounts_keeper.LogWriter;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
 import java.io.IOException;
@@ -67,11 +68,11 @@ public class LoadFromYandexDisk implements LoadFrom {
                 
             }
             catch (IOException e) {
-                e.printStackTrace();
+                LogWriter.getInstance().write("load from YD", e.getMessage());
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("load from YD", e.getMessage());
         }
         
         return hRef;
@@ -108,7 +109,7 @@ public class LoadFromYandexDisk implements LoadFrom {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("download from YD", e.getMessage());
         }
         return null;
     }

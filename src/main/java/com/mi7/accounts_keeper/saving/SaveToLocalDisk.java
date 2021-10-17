@@ -7,6 +7,7 @@ package com.mi7.accounts_keeper.saving;
 
 import com.mi7.accounts_keeper.AppConfig;
 import com.mi7.accounts_keeper.DataSet;
+import com.mi7.accounts_keeper.LogWriter;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import java.io.FileOutputStream;
 import javax.crypto.Cipher;
@@ -56,7 +57,7 @@ public class SaveToLocalDisk implements SaveTo {
             }
         }
         catch (Exception e) {
-            
+            LogWriter.getInstance().write("Save to local disk", e.getMessage());
         }
     }
 }

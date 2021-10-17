@@ -7,6 +7,7 @@ package com.mi7.accounts_keeper.saving;
 
 import com.mi7.accounts_keeper.AppConfig;
 import com.mi7.accounts_keeper.DataSet;
+import com.mi7.accounts_keeper.LogWriter;
 import com.mi7.accounts_keeper.cipher.AppCipher;
 import com.mi7.accounts_keeper.entity.DataRecord;
 import java.sql.Blob;
@@ -62,7 +63,7 @@ public class SaveToDatabase implements SaveTo {
             }    
             
         } catch (Exception e) {
-            e.printStackTrace();
+            LogWriter.getInstance().write("Save to DB", e.getMessage());
         }
         
     }

@@ -23,6 +23,15 @@ public class AppConfig {
     private String dbDecodedPass;
     private String localFile;
     private String localDecryptedFile;
+    private String logFile;
+
+    public String getLogFile() {
+        return logFile;
+    }
+
+    public void setLogFile(String logFile) {
+        this.logFile = logFile;
+    }
     
 
     public String getToken() {
